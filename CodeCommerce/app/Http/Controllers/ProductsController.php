@@ -16,12 +16,12 @@ class ProductsController extends Controller
 
 	
 	public function __construct(Product $productModel) {
-		$this->ProductModel = $productModel;
+		$this->productModel = $productModel;
 	}
 	
 	public function index(){
 	
-		$products = $this->ProductModel->paginate(10);
+		$products = $this->productModel->paginate(10);
 	
 		return view('products.index',  compact('products'));
 	}
@@ -39,7 +39,7 @@ class ProductsController extends Controller
 		 
 		$input = $request->all();
 		 
-		$Product =$this->ProductModel->fill($input);
+		$Product =$this->productModel->fill($input);
 		 
 		$Product->save();
 		 
@@ -51,26 +51,29 @@ class ProductsController extends Controller
 		
 		$categories = $category->lists('name', 'id');
 		
-		$product = $this->ProductModel->find($id);
+		$product = $this->productModel->find($id);
 		return view('products.edit', compact('product','categories'));
 	}
 	
 	public function update(Requests\ProductRequest $request, $id){
-		$this->ProductModel->find($id)->update($request->all());
+		$this->productModel->find($id)->update($request->all());
 		return redirect()->route('products');
 		 
 	}
 	
 	public function destroy($id){
 		 
-		$this->ProductModel->find($id)->delete();
+		$this->productModel->find($id)->delete();
 		return redirect()->route('products');
 		 
 	}
+                
         
-        public function images($id){               	             	
-            $product = Product::findOrNew($id);        
-            return view('products.images',compact('product'));
+         public function images($id){            
+      
+            $product = $this->model->find($id);         
+            
+            return view('products.images',  compact('product'));
         }
    
 	
