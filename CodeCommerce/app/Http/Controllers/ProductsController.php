@@ -4,9 +4,15 @@ namespace CodeCommerce\Http\Controllers;
 
 use CodeCommerce\Category;
 use CodeCommerce\Product;
+use CodeCommerce\ProductImage;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
 use CodeCommerce;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
+
 
 
 class ProductsController extends Controller
@@ -70,11 +76,42 @@ class ProductsController extends Controller
                 
         
          public function images($id){            
-      
-            $product = $this->model->find($id);         
+                
+            $product = $this->productModel->find($id);
             
             return view('products.images',  compact('product'));
         }
+        
+        public function createImage($id){
+        
+        	$product = $this->productModel->find($id);
+        
+        	return view('products.create_image',  compact('product'));
+        }
    
+        public function  storeImage(Requests\ProductImageRequest $request, $id, ProductImage $productImage) {
+        	$file = $request->file('image');
+        	$extension = $file->getClientOriginalExtension();
+        	
+        	//Grava imagem no banco
+        	$image = $productImage::create(['product_id'=>$id, 'extension'=>$extension]);
+        
+        	Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
+        
+        	return redirect()->route('products.images', ['id'=>$id]);
+        }
+        
+        public function destroyImage(ProductImage $productImage, $id){
+        	$image =$productImage->find($id);
+        	
+        	if(file_Exists(public_path() . '/uploads/'.$image->id.'.'.$image->extension)){
+        		Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
+        	}        	
+        
+        	$product =$image->product;
+        	$image->delete();
+        	
+        	return redirect()->route('products.images',['id'=>$product->id]);
+        }
 	
 }

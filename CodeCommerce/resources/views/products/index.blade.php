@@ -27,6 +27,7 @@
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->category->name }}</td>
                     <td><a href="{{ route('products.edit',['id'=>$product->id]) }}">Edit</a> </td> |
+                    <td><a href="{{ route('products.images',['id'=>$product->id]) }}">Images</a> </td> |
                     <td><a href="{{ route('products.destroy',['category'=>$product->id]) }}">Deletar</a> </td>
                 </tr>
                 @endforeach
