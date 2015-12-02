@@ -15,10 +15,18 @@ class StoreController extends Controller
  		public function index(){
  			
  			$pFeatured = Product::featured()->get();
- 			
+ 			$pRecommended = Product::recommended()->get();
  			$categories = Category::all();
  	
- 			return view('store.index', compact('categories','pFeatured'));
+ 			return view('store.index', compact('categories','pFeatured','pRecommended'));
  	
  		}
+                
+                 public  function category($id){
+                     $categories = Category::all();
+                     $category = Category::findOrNew($id);
+                     $products = Product::ofCategory($id)->get();
+                     
+                     return view('store.category', compact('categories','category','products'));
+                 }
 }
