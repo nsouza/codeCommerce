@@ -7,14 +7,14 @@ use CodeCommerce\User;
 class UserTableSeeder extends Seeder {
 	function run() {
 		
-		DB::table ( 'users' )->truncate ();
+		//DB::table ( 'users' )->truncate ();
 	
 		
 		factory (CodeCommerce\User::class)->create ( 
 		[ 
-				'name' => 'Wesley',
-				'email' => 'wesleywillians@gmail.com',
-				'password' => Hash::make ( 123456 ) 
+				'name' => 'Nilo',
+				'email' => 'nilo.contatos@gmail.com',
+				'password' => Hash::make (123456) 
 		] );
 		
 		factory ( 'CodeCommerce\User', 10 )->create (); 

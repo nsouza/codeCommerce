@@ -67,7 +67,7 @@ return [
     		'pgsql' => [
     				'driver' => 'pgsql',
     				'host' => 'localhost',
-    				'database' => 'laravel',
+    				'database' => 'laravell',
     				'username' => 'postgres',
     				'password' => 'pglocal',
     				'charset' => 'utf8',

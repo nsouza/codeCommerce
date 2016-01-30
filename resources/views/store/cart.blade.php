@@ -1,6 +1,7 @@
 @extends('store.store') 
 
 
+
 @section('content')
 
 <section id="cart_items">
@@ -62,7 +63,7 @@
 									TOTAL: R$ {{ $cart->getTotal() }}
 								</span>
 								
-								<a href="#" class="btn btn-success" >Fechar a Conta</a>
+								<a href="{{ route('checkout.place')  }}" class="btn btn-success" >Fechar a Conta</a>
 							</div>
 						</td>
 					</tr>

@@ -12,9 +12,9 @@ class CreateOrderTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsinged();
+            $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->decimal('total', 8,2);
             $table->smallInteger('status')->default(0);

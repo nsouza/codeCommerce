@@ -38,4 +38,9 @@ Class Cart{
 	
 		return $total;
 	}	
+	
+	
+	function clear() {
+		$this->items = [];
+	}
 }
