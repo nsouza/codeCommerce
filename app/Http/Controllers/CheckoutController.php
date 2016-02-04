@@ -15,9 +15,7 @@ use CodeCommerce\Category;
 
 class CheckoutController extends Controller
 {
-	public function __construct(){
-		$this->middleware('auth');
-	}
+
 	
 	//pega o usuario e gera a ordem de pedido no sistema
     public function place(Order $orderModel, OrderItem $orderItem) {
@@ -32,13 +30,13 @@ class CheckoutController extends Controller
     	 	
     	foreach ($cart->all() as $k=>$item){
     		
-    		$order->items()->create(['product_id'=>$k, 'price'=>$item['price'], 'qtd'=>$item['qtde]']]);
+    		$order->items()->create(['product_id'=>$k, 'price'=>$item['price'], 'qtd'=>$item['qtd']]);
     	}
     	
     	$cart->clear();
     	
     	//gerar a ordem de serviço
-    	return view('store.checkout', compact('order'));
+    	return view('store.checkout', compact('order','cart'));
     	
     }
     	$categories = Category::all();
